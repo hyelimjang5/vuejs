@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>attribute를 유동적으로 변경</title>
+</head>
+<style>
+	.dropdown ul{
+		display:none;
+		list-style:none;
+		margin:0;
+		border: 1px solid black;
+		padding:10px;
+		width:200px;
+	}
+	.dropdown.on ul{
+		display:block;
+	}
+</style>
+<body>
+<div id="app">
+	<img :id="`thumbnail_${id}`" :src="image"/><!-- v_bind: 가 정식 명칭이지만 :만 붙여도 됨 --><!-- string 연산도 가능 --><!-- '가 아니라 `임 -->
+	
+	<div :style="[style, fontStyle]"><!-- 두 개 동시에 적용 시 배열로 적용하면 됨 -->
+		테스트 용 DIV
+	</div>
+	
+	<button type="button" @click="btnClick">버튼</button>
+	<div :class="[dropdown, toggle]"><!-- class에는 true,false로 적용 여부를 정함 -->
+		<ul>
+			<li><a href="#">메뉴1</a></li>		
+			<li><a href="#">메뉴2</a></li>		
+		</ul>
+	</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+	let app = new Vue({
+		el: '#app',
+		data(){
+			return{
+				id:1,
+				image: 'https://picsum.photos/200/200/?image=353',
+				style:{
+					background:'red'
+				},
+				fontStyle:{
+					fontSize : '10px',
+					fontFamily: 'dotum',
+				},
+				dropdown:{
+					dropdown:true/* true 면 class="dropdown"이 되고 false 면 적용안됨 */
+				},
+				toggle:{
+					on:false/* true 면 class에 on이 추가, false면 제거 */
+				}
+			
+			};
+		},
+		methods:{
+			btnClick(){
+				this.toggle.on =! this.toggle.on;
+			}
+		}
+	})
+</script>
+</body>
+</html>

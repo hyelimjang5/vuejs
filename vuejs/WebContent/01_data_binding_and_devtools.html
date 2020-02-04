@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<meta content="width=device-width,initial-scale=1,minimal-ui" name="viewport">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic|Material+Icons">
+    <link rel="stylesheet" href="https://unpkg.com/vue-material/dist/vue-material.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/vue-material/dist/theme/default.css">
+</head>
+<body>
+<div id="app">	
+	<input type="text" id="user_id" v-model="userId"/><!-- vue 인스턴스의 data와 연동 -->
+	<input type="password" id="user_password" v-model="userPassword"/>
+	<button type="button">로그인</button>
+	<!-- function을 사용해서 값을 가져와 post하지 않아도 됨 -->
+	<br />
+	
+	아이디:{{ userId }}
+	<br />
+	비밀번호:{{ userPassword }}
+	
+	<md-field>
+      <label>사업명</label>
+      <md-input v-model="initial"></md-input>
+    </md-field>
+    
+    
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://unpkg.com/vue"></script>
+    <script src="https://unpkg.com/vue-material"></script>
+<script>
+Vue.use(VueMaterial.default)
+	new Vue({
+		el: '#app',
+		data(){
+			return{
+				userId:'',
+				userPassword:''
+			}
+		}
+	})
+	
+</script>
+
+</body>
+</html>

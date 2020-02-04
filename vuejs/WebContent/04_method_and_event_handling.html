@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<div id="app">
+	<!-- <button type="button" v-on:click="add">더하기</button> --><!-- v-on:이벤트 --> 
+	<button type="button" @click="add">더하기</button><!-- v-on:은 @과 같다 -->
+	{{ counter}}
+	
+	<input type="text" @keyup.enter="keyUp" /><!-- enter키 눌렀을때만 이벤트가 실행되게 할 수 있음 -->
+	
+	
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+/* 	function aaa(){}//함수
+	let object = {
+			test(){}//메소드
+			test2:()=>{}//메소드
+	}
+	class testClass{
+		test(){}//메소드, 어딘가에 속해있는 함수는 메소드
+	} 
+*/
+
+	let app = new Vue({
+		el: '#app',
+		data(){
+			return{
+				counter: 0
+			};
+		},
+		methods:{
+			//화살표함수 사용하면 안됨(=>)
+			add(){
+				this.counter ++
+			},
+			keyUp(ev){
+				if(ev.keyCode !== 13){
+					console.log("엔터키 아님");
+					return;
+				}
+				console.log('엔터키 눌림');
+			}
+		}
+	})
+</script>
+</body>
+</html>
