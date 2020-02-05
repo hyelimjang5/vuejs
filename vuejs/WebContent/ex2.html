@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vuetify/1.5.14/vuetify.min.js"></script>
+<link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/vuetify@1.5.6/dist/vuetify.min.css" rel="stylesheet"/>
+<link href="https://static.fontawesome.com/css/fontawesome-app.css" rel="stylesheet"/>
+<link href="https://pro.fontawesome.com/releases/v5.2.0/css/all.css" rel="stylesheet"/>
+
+
+<div id="app">
+    <v-app id="inspire">
+        <v-card>
+            <v-card-title>
+                Un Added Lab Equipment
+                <v-spacer></v-spacer>
+                <v-text-field v-model="search" append-icon="search" label="Search" single-line hide-details>
+                </v-text-field>
+            </v-card-title>
+            <v-data-table :headers="Headers" :items="items" :search="search" item-key="equipment" hide-actions expand
+                class="elevation-1">
+                <template slot="items" scope="props">
+                    <td class="text-xs">{{ props.item.equipment }}</td>
+                    <td class="text-xs">{{ props.item.location }}</td>
+                    <td class="text-xs">{{ props.item.qty }}</td>
+                    <td>
+                        <v-dialog v-model="dialog[props.item.equipment]" lazy absolute>
+                            <v-btn flat icon color="blue lighten-2"
+                                @click.stop="$set(dialog, props.item.equipment, true)" slot="activator">
+                                <v-icon>info</v-icon>
+                            </v-btn>
+                            <v-card>
+                                <v-card-title>
+                                    <div class="headline">More Info for '{{ props.item.equipment }}'</div>
+                                </v-card-title>
+                                <v-card-text>
+                                    <v-img :src="props.item.pictureUrl" aspect-ratio="2.75"></v-img>
+                                    {{props.item.location}}
+                                </v-card-text>
+                                <v-card-actions>
+                                    <v-spacer></v-spacer>
+                                    <v-btn class="blue--text darken-1" flat="flat"
+                                        @click.stop="$set(dialog, props.item.equipment, false)">No</v-btn>
+                                    <v-btn class="blue--text darken-1" flat="flat"
+                                        @click.native="deleteRow(props.item)">Yes</v-btn>
+                                </v-card-actions>
+                            </v-card>
+                        </v-dialog>
+                    </td>
+                    <td class="text-xs">
+                        <button v-on:click="decrement(props.item.id)"
+                            :disabled="disabled == props.item.id ? true : false">
+                            <v-icon color="pink">remove</v-icon>
+                        </button>
+                        <button v-on:click="increment(props.item.id)" id="incrementButton"
+                            :disabled="disabled == props.item.id + '2' ? true : false">
+                            <v-icon color="green">add</v-icon>
+                        </button>
+                    </td>
+                </template>
+            </v-data-table>
+        </v-card>
+    </v-app>
+</div>
+
+<script>
+new Vue({
+	  el: "#app",
+	  data() {
+	    return {
+	      disabled: "",
+	      searchAdded: "",
+	      message: "omae wa moo shindeiruu",
+	      dialog: {},
+	      notifications: false,
+	      sound: true,
+	      test: true,
+	      widgets: false,
+	      search: "",
+	      Headers: [
+	        { text: "Equipment", value: "equipment" },
+	        { text: "Location", value: "location" },
+	        { text: "Qty", value: "qty" },
+	        {
+	          text: "MoreInfo",
+	          value: "pictureUrl",
+	          sortable: false,
+	          disabled: false
+	        },
+	        {
+	          text: "Add or Remove",
+	          value: "addo",
+	          sortable: false,
+	          disabled: true
+	        }
+	      ],
+	      HeadersAdded: [
+	        { text: "Equipment", value: "itemName" },
+	        { text: "Location", value: "location" },
+	        { text: "Qty", value: "quantity" },
+	        {
+	          text: "Add or Remove",
+	          value: "addo",
+	          sortable: false,
+	          disabled: true
+	        }
+	      ],
+	      items: [
+	        {
+	          equipment: "beaker",
+	          location: "Room 3535 drawer 21",
+	          qty: 21,
+	          id: "07f37f",
+	          pictureUrl:"https://www.bhphotovideo.com/images/images2500x2500/Photographers_Formulary_09_0095_Glass_Beaker_600ml_231378.jpg"
+	        },
+	        {
+	          equipment: "ruler",
+	          location: "Room 3535 drawer 10",
+	          qty: 7,
+	          id: "08f312",
+	          pictureUrl: "https://images-na.ssl-images-amazon.com/images/I/41qUVuXt2AL.jpg"
+	        },
+	        {
+	          equipment: "flask",
+	          location: "Room 2121 drawer 22",
+	          qty: 6,
+	          id: "09f37d",
+	          pictureUrl: "https://images-na.ssl-images-amazon.com/images/I/316GJIEdJxL._SY445_.jpg"
+	        },
+	        {
+	          equipment: "vernier-caliber",
+	          location: "Room 4125 drawer 21",
+	          qty: 12,
+	          id: "07g3hf",
+	          pictureUrl: "https://static.grainger.com/rp/s/is/image/Grainger/2ZUF3_AS01?$mdmain$"
+	        }
+	      ],
+	      itemsAdded: []
+	    };
+	  }
+	});
+</script>
+</body>
+</html>
